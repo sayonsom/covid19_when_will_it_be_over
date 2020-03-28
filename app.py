@@ -416,9 +416,9 @@ else:
     worry_message_special = "Please try and get in touch with someone for physical or emotional help."
 st.markdown(f"On the personal front, we project the worry index for you to be __{personal_worry_index_total:.3f}__. {personal_worry_index_suggestion}")
 
-st.markdown(f"### What's the point of all these lockdowns and social distancing?")
+st.markdown(f"## What's the point of all these lockdowns and social distancing?")
 
-st.markdown("Thank you for doing your part and doing you part in helping the country and our civilization. Lockdowns and social distancing are non-medical interventions to manipulate the reproductive rate of the novel coronavirus.")
+# st.markdown("Thank you for doing your part and doing you part in helping the country and our civilization. Lockdowns and social distancing are non-medical interventions to manipulate the reproductive rate of the novel coronavirus.")
 st.markdown("If left unchecked - i.e. the normal life scenario - this menacing virus will affect nearly 3 people for every one infected person (as of now, the estimated reproductive rate of the virus is 2.28).")
 st.markdown("If we don't do these lockdowns, we will get over this crisis faster, BUT, at the disastrous cost of lives. But, if we do the lockdowns, the lives lost will be much less - but, the period will stretch longer. Check out the numbers by choosing the different social distancing enforcement options")
 
