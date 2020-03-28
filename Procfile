@@ -1,0 +1,1 @@
+web: bash setup.sh && streamlit run covid19_lite.py
