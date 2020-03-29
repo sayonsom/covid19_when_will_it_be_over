@@ -356,7 +356,7 @@ else:
     cases_on_interest_date = int(I[diff])
     expected_fatality = cases_on_interest_date * death_to_case_ratio
 
-    write_string = f"As of {interest_date.strftime('%b %d, %Y')}, we expect {new_cases:,} new cases."
+    write_string = f"As of {interest_date.strftime('%b %d, %Y')}, we expect {new_cases:,} total cases."
 
 st.markdown(write_string)
 
