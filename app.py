@@ -7,7 +7,6 @@ import plotly.figure_factory as ff
 import re
 import requests
 from datetime import datetime, timedelta
-from bokeh.plotting import figure
 import pandas as pd
 import numpy as np
 
