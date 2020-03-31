@@ -103,7 +103,7 @@ population = pop_data[user_country]['population']
 country_rank = pop_data[user_country]['rank']
 population_density = pop_data[user_country]['pop_density']
 st.sidebar.markdown("##### The community outside")
-lockdown_status = st.sidebar.radio("How strictly is lockdown/shelter-in-place being enforced?", ["No one's allowed out", "See only a few people out", "People are secretly not following rules", "People are openly not following rules"])
+lockdown_status = st.sidebar.radio("How strictly is lockdown/shelter-in-place being enforced?", ["no one's allowed out", "you see only a few people out", "people are secretly not following rules", "people are openly not following rules"])
 
 # st.sidebar.markdown("##### The Human Network and Health System Response")
 # st.sidebar.markdown("> Play with this section to see how governmental initiatives, such as contact tracing, can affect the rate of infected and thus, the death rate")
@@ -171,14 +171,14 @@ else:
     preexisting_conditions_weight = 1
 
 
-if lockdown_status == "No one's allowed out":
-    lockdown_intensity_value = 0.1
-elif lockdown_status == "See only a few people out":
+if lockdown_status == "no one's allowed out":
+    lockdown_intensity_value = 0.05
+elif lockdown_status == "you see only a few people out":
+    lockdown_intensity_value = 0.10
+elif lockdown_status == "people are secretly not following rules":
     lockdown_intensity_value = 0.33
-elif lockdown_status == "People are secretly not following rules":
+elif lockdown_status == "people are openly not following rules":
     lockdown_intensity_value = 0.66
-elif lockdown_status == "People are openly not following rules":
-    lockdown_intensity_value = 1
 
 dates, deaths, confirmed, recovery, case_rate, death_rate, recovery_rate, date_of_spread_start, seven_day_cases_pc, seven_day_deaths_pc = get_corona_data(user_country)
 
@@ -328,7 +328,11 @@ st.line_chart(chart_data)
 
 
 if case_rate > 1.25:
-    st.markdown(f"> Our model suggests that, __in {int(days_left/7)} weeks, that is, by {good_news_date}__, everything will be safe and normal again. There is a risk of {actual_infections:,} cases in {user_country}. Most of these cases will be minor. However, the number of __lives lost__ _can_ be as high as __{int(actual_infections*death_to_case_ratio):,}__.")
+    x = int(days_left / 7)
+    if x > 100:
+        st.markdown(f"> Our model suggests it will take __almost two years__, about {good_news_date}, for everything to be safe and normal again. In this period, there will be approximately {actual_infections:,} cases in {user_country}. Most of these cases will be minor. However, the number of __lives lost__ _can_ be as high as __{int(actual_infections*death_to_case_ratio):,}__.")
+    else:
+        st.markdown(f"> Our model suggests that, __in {x} weeks, that is, by {good_news_date}__, everything will be safe and normal again. There is a risk of {actual_infections:,} cases in {user_country}. Most of these cases will be minor. However, the number of __lives lost__ _can_ be as high as __{int(actual_infections*death_to_case_ratio):,}__.")
 else:
     st.markdown(f"> Our model suggests that, the pandemic is not a major crisis in {user_country} at this moment. Still there is a risk of {actual_infections:,} cases in {user_country}. Most of these cases will be minor. It is still important to note that, the number of __lives lost__ _can_ be as high as __{int(actual_infections*death_to_case_ratio):,}__, as well as chance of a new outbreak.")
 
@@ -347,14 +351,9 @@ chart_data = chart_data.rename(columns={'Days':'index'}).set_index('index')
 st.line_chart(chart_data)
 
 
-# p = figure(title='Case % / Death %',
-#           x_axis_label="Cases %",
-#           y_axis_label="Deaths %")
+st.markdown("## Social / physical distancing changes the blue curve below, which changes everything")
 
-# p.line(days, seven_day_cases_pc)
-# p.line(days, seven_day_deaths_pc)
-# st.bokeh_chart(p, use_container_width=True)
-
+st.markdown(f"Feel free to adjust the level of social/physical distancing being practiced in {user_country} to see how the curve and the numbers change.")
 
 chart_data = pd.DataFrame({
     'People at Risk': S,
@@ -363,6 +362,9 @@ chart_data = pd.DataFrame({
 )
 
 st.line_chart(chart_data)
+
+st.markdown(f"- Estimated number of cases: __{actual_infections:,}__")
+st.markdown(f"- Estimated number of lives lost: __{int(actual_infections*death_to_case_ratio):,}__")
 
 
 st.write("""
